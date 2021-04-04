@@ -19,6 +19,7 @@ class ViewController: UIViewController,UITableViewDataSource {
     var items = [String]()
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.items = UserDefaults.standard.stringArray(forKey: "items") ?? []  // app launches and retrieves saved items stored on device
         title = "To do List"
         view.addSubview(table)
         table.dataSource =  self
@@ -37,6 +38,10 @@ class ViewController: UIViewController,UITableViewDataSource {
                 if let text = field.text, !text.isEmpty{
                     print(text)
                     DispatchQueue.main.async {
+//                        let itemEntry = [text]
+                        var currentItems = UserDefaults.standard.stringArray(forKey: "items") ?? []
+                        currentItems.append(text)
+                        UserDefaults.standard.setValue(currentItems, forKey: "items")  // we want to save  items on a user device
                         self?.items.append(text)   // append text to the items array
                         self?.table.reloadData()  // reload cells in table view
                     }
