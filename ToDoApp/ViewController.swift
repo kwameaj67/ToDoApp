@@ -24,6 +24,7 @@ class ViewController: UIViewController,UITableViewDataSource {
         view.addSubview(table)
         table.dataSource =  self
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem:.add, target:self, action: #selector(createListItem))
+        navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .edit, target: self, action:#selector(editListItem))
       
     }
     @objc private func createListItem(){
@@ -53,7 +54,9 @@ class ViewController: UIViewController,UITableViewDataSource {
         present(alert,animated: true)
         
     }
-   
+    @objc func editListItem(){
+    
+    }
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         table.frame = view.bounds
@@ -80,6 +83,7 @@ class ViewController: UIViewController,UITableViewDataSource {
             UserDefaults.standard.setValue(items, forKey: "items")  // we store remaining items
         }
     }
+    
     
 }
 
