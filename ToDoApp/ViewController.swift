@@ -24,6 +24,7 @@ class ViewController: UIViewController,UITableViewDataSource {
         view.addSubview(table)
         table.dataSource =  self
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem:.add, target:self, action: #selector(createListItem))
+      
     }
     @objc private func createListItem(){
 //        creates and opens alert
@@ -52,6 +53,7 @@ class ViewController: UIViewController,UITableViewDataSource {
         present(alert,animated: true)
         
     }
+   
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         table.frame = view.bounds
@@ -66,6 +68,17 @@ class ViewController: UIViewController,UITableViewDataSource {
 //        we create a text label cell
         cell.textLabel?.text = items[indexPath.row]
         return cell
+    }
+    
+    
+//    function to delete row cells
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            items.remove(at: indexPath.row)
+            tableView.deleteRows(at: [indexPath], with: .fade)
+            print(items)
+            UserDefaults.standard.setValue(items, forKey: "items")  // we store remaining items
+        }
     }
     
 }
